@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Honeycomb Stitches · Handmade with Love 🐝</title>
+  <meta name="description" content="Artisanal handcrafted crochet & knit boutique with plushies, blankets, sweaters, customer reviews, and fast Indian Rupee UPI and COD delivery.">
+  <link rel="icon" type="image/jpeg" href="assets/logo.jpg">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dreamy-backdrop antialiased">
+
+  <!-- Top Announcement Bar -->
+  <div class="bg-gradient-to-r from-amber-600 via-amber-500 to-amber-600 text-amber-50 text-xs font-semibold py-2 px-4 text-center tracking-wide flex items-center justify-center gap-2 shadow-xs">
+    <span>✨ Handmade with love in India</span>
+    <span class="hidden sm:inline">·</span>
+    <span class="hidden sm:inline">Use code <strong class="text-white underline decoration-wavy">CUTE15</strong> for 15% off</span>
+    <span class="hidden sm:inline">·</span>
+    <span>Free delivery on orders over ₹999 🚚</span>
+  </div>
+
+  <!-- Navigation Bar -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-amber-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="relative w-12 h-12 rounded-full overflow-hidden border-2 border-amber-400 honey-shadow-sm group-hover:scale-105 transition-transform">
+          <img src="assets/logo.jpg" alt="Honeycomb Stitches Logo" class="w-full h-full object-cover">
+        </div>
+        <div>
+          <span class="brand-title text-xl sm:text-2xl font-bold text-stone-800 tracking-tight flex items-center gap-1.5">
+            Honeycomb Stitches
+            <span class="text-amber-500 float-bee text-base">🐝</span>
+          </span>
+          <p class="text-[11px] text-amber-700/80 font-medium tracking-wider uppercase">Handmade with love</p>
+        </div>
+      </a>
+
+      <!-- Search Bar (Desktop & Tablet) -->
+      <div class="hidden md:flex flex-1 max-w-md mx-4">
+        <div class="relative w-full">
+          <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-stone-400 text-sm"></i>
+          <input id="search-input" type="text" placeholder="Search plushies, cardigans, blankets..." 
+            class="w-full pl-11 pr-4 py-2.5 rounded-full bg-stone-100/70 border border-transparent focus:border-amber-400 focus:bg-white text-stone-800 text-sm outline-none transition-all placeholder:text-stone-400">
+        </div>
+      </div>
+
+      <!-- Action Icons (Wishlist, Orders, Cart, Admin) -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Order Tracking Button -->
+        <button id="nav-orders-btn" title="Track Orders" class="flex items-center gap-1 px-3 py-2 rounded-full hover:bg-amber-50 text-stone-700 text-xs font-bold transition-all">
+          <i class="fa-solid fa-truck-fast text-amber-600 text-sm"></i>
+          <span class="hidden sm:inline">Orders</span>
+        </button>
+
+        <!-- Wishlist -->
+        <button id="nav-wish-btn" title="Wishlist" class="relative w-10 h-10 rounded-full flex items-center justify-center text-stone-700 hover:text-pink-600 hover:bg-pink-50 transition-all">
+          <i class="fa-regular fa-heart text-lg"></i>
+          <span id="nav-wish-count" class="absolute -top-1 -right-1 bg-pink-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">2</span>
+        </button>
+
+        <!-- Cart Drawer Button -->
+        <button id="nav-cart-btn" class="flex items-center gap-2 bg-amber-500 hover:bg-amber-600 active:scale-95 text-white px-4 py-2.5 rounded-full font-bold text-xs shadow-md transition-all">
+          <i class="fa-solid fa-bag-shopping text-sm"></i>
+          <span class="hidden sm:inline">Bag</span>
+          <span id="nav-cart-count" class="bg-amber-800/80 px-2 py-0.5 rounded-full text-[10px]">0</span>
+        </button>
+
+        <!-- Admin Portal Entry -->
+        <button id="nav-admin-btn" title="Admin Management Portal" class="relative w-10 h-10 rounded-full bg-stone-100 hover:bg-amber-100 text-stone-700 hover:text-amber-800 flex items-center justify-center transition-all ml-1">
+          <i class="fa-solid fa-shield-halved text-sm"></i>
+          <span id="nav-admin-badge" class="hidden absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white">0</span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Search Row -->
+    <div class="md:hidden px-4 pb-3">
+      <div class="relative w-full">
+        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 text-xs"></i>
+        <input type="text" oninput="document.getElementById('search-input').value = this.value; store.renderProducts('ALL', this.value);" placeholder="Search handcrafted crochet..." 
+          class="w-full pl-9 pr-3 py-2 rounded-full bg-stone-100/90 text-stone-800 text-xs outline-none focus:border-amber-400 border border-transparent">
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-4">
+    <div class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-amber-100 via-orange-50 to-pink-50 border border-amber-200/60 p-6 sm:p-10 honey-shadow">
+      
+      <!-- Decorative yarn stitches -->
+      <div class="absolute -right-10 -bottom-10 text-9xl opacity-15 pointer-events-none select-none">🧶</div>
+      <div class="absolute right-20 top-6 text-6xl opacity-20 pointer-events-none select-none float-bee">🐝</div>
+
+      <div class="relative z-10 max-w-2xl">
+        <span class="inline-flex items-center gap-1.5 text-xs font-bold text-amber-800 bg-amber-200/70 px-3 py-1 rounded-full mb-3">
+          <span class="text-amber-600">✦</span> Artisanal Crochet Collection
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-extrabold text-stone-900 leading-tight">
+          Warm · Handmade · <span class="text-amber-600">Memorable.</span>
+        </h1>
+        <p class="mt-3 text-stone-600 text-sm sm:text-base leading-relaxed">
+          Lovingly crafted amigurumi plushies, dreamy hexagon blankets, and balloon-sleeve cardigans made with premium organic cotton and velvet yarns.
+        </p>
+
+        <!-- Value Badges -->
+        <div class="mt-6 flex flex-wrap gap-4 text-xs font-semibold text-stone-700">
+          <div class="flex items-center gap-2 bg-white/80 backdrop-blur-xs px-3 py-1.5 rounded-full border border-amber-100">
+            <span class="text-amber-500">✔</span> 100% Handcrafted
+          </div>
+          <div class="flex items-center gap-2 bg-white/80 backdrop-blur-xs px-3 py-1.5 rounded-full border border-amber-100">
+            <span class="text-amber-500">✔</span> PhonePe / UPI Direct Payment
+          </div>
+          <div class="flex items-center gap-2 bg-white/80 backdrop-blur-xs px-3 py-1.5 rounded-full border border-amber-100">
+            <span class="text-amber-500">✔</span> Cash on Delivery Available
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Categories Filter Navigation -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+    <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+      <button class="cat-pill bg-amber-500 text-white px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap shadow-xs transition-all" data-cat="ALL">
+        All Creations
+      </button>
+      <button class="cat-pill bg-white text-stone-700 hover:bg-amber-50 border border-amber-100 px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap shadow-xs transition-all" data-cat="Amigurumi">
+        🐝 Plushies & Amigurumi
+      </button>
+      <button class="cat-pill bg-white text-stone-700 hover:bg-amber-50 border border-amber-100 px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap shadow-xs transition-all" data-cat="Blankets">
+        🧶 Honeycomb Blankets
+      </button>
+      <button class="cat-pill bg-white text-stone-700 hover:bg-amber-50 border border-amber-100 px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap shadow-xs transition-all" data-cat="Sweaters">
+        🌸 Cardigans & Sweaters
+      </button>
+      <button class="cat-pill bg-white text-stone-700 hover:bg-amber-50 border border-amber-100 px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap shadow-xs transition-all" data-cat="Accessories">
+        🧣 Beanies & Totes
+      </button>
+      <button class="cat-pill bg-white text-stone-700 hover:bg-amber-50 border border-amber-100 px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap shadow-xs transition-all" data-cat="Kits">
+        🪡 DIY Kits & Yarn
+      </button>
+    </div>
+  </section>
+
+  <!-- Product Catalog Grid -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 pb-20">
+    <div class="flex justify-between items-center mb-6">
+      <div>
+        <h2 class="text-xl sm:text-2xl font-bold text-stone-800">Featured Handcrafted Items</h2>
+        <p class="text-xs text-stone-500 mt-0.5">Carefully stitched one loop at a time · Prices in Indian Rupees (₹)</p>
+      </div>
+      <span class="text-xs text-amber-800 font-semibold bg-amber-100 px-3 py-1 rounded-full">
+        Ready to Ship 📦
+      </span>
+    </div>
+
+    <!-- Products Grid (Rendered by JS) -->
+    <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <!-- Injected dynamically via store.renderProducts() -->
+    </div>
+  </main>
+
+  <!-- Slide-out Cart Drawer -->
+  <div id="cart-drawer-overlay" class="hidden fixed inset-0 bg-stone-900/40 backdrop-blur-xs z-50 transition-opacity"></div>
+  <aside id="cart-drawer" class="fixed top-0 right-0 h-full w-full sm:w-[420px] bg-stone-50 z-50 shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+    <!-- Drawer Header -->
+    <div class="p-5 bg-white border-b border-amber-100 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="text-xl">🛍️</span>
+        <h3 class="font-bold text-lg text-stone-800">Your Handcrafted Bag</h3>
+      </div>
+      <button id="close-cart-btn" class="w-8 h-8 rounded-full hover:bg-stone-100 flex items-center justify-center text-stone-500">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <!-- Items List -->
+    <div id="cart-items-container" class="flex-1 overflow-y-auto p-4 space-y-3">
+      <!-- Items dynamically populated -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="empty-cart-msg" class="hidden flex-1 flex flex-col items-center justify-center p-8 text-center text-stone-400">
+      <span class="text-5xl mb-3">🧺</span>
+      <h4 class="font-bold text-stone-700 text-base">Your bag is empty</h4>
+      <p class="text-xs text-stone-400 mt-1">Explore our amigurumi plushies and cozy blankets to add your favorites.</p>
+    </div>
+
+    <!-- Drawer Footer / Summary -->
+    <div id="cart-footer" class="p-5 bg-white border-t border-amber-100 space-y-3">
+      <!-- Promo Code Input -->
+      <div class="flex gap-2">
+        <input id="coupon-input" type="text" placeholder="Promo code (e.g. CUTE15)" 
+          class="flex-1 px-3 py-2 text-xs uppercase bg-stone-100 rounded-xl border border-transparent focus:border-amber-400 outline-none">
+        <button onclick="store.applyCoupon(document.getElementById('coupon-input').value)" 
+          class="px-4 py-2 bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold rounded-xl transition-all">
+          Apply
+        </button>
+      </div>
+
+      <!-- Price Breakdown -->
+      <div class="space-y-1.5 text-xs text-stone-600 pt-2 border-t border-amber-50">
+        <div class="flex justify-between">
+          <span>Subtotal</span>
+          <span id="cart-subtotal" class="font-semibold text-stone-800">₹0</span>
+        </div>
+        <div class="flex justify-between text-emerald-600">
+          <span>Discount</span>
+          <span id="cart-discount" class="font-semibold">₹0</span>
+        </div>
+        <div class="flex justify-between">
+          <span>Delivery</span>
+          <span id="cart-shipping" class="font-semibold text-stone-800">FREE</span>
+        </div>
+        <div class="flex justify-between text-base font-bold text-stone-900 pt-2 border-t border-amber-100">
+          <span>Total (INR)</span>
+          <span id="cart-total" class="text-amber-800">₹0</span>
+        </div>
+      </div>
+
+      <button id="cart-checkout-btn" class="w-full py-3.5 bg-amber-500 hover:bg-amber-600 active:scale-98 text-white font-bold text-sm rounded-2xl shadow-lg transition-all flex items-center justify-center gap-2">
+        <span>Proceed to Checkout</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Product Detail & Reviews Modal -->
+  <div id="product-detail-modal" class="hidden fixed inset-0 z-50 overflow-y-auto modal-overlay flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto honey-shadow p-6 sm:p-8 relative">
+      <button onclick="closeProductModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-stone-500 z-10">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <!-- Visual Presentation -->
+        <div id="modal-prod-visual-bg" class="rounded-2xl h-64 sm:h-auto flex items-center justify-center text-8xl relative overflow-hidden">
+          <span id="modal-prod-icon" class="drop-shadow-md">🐝</span>
+          <span id="modal-prod-badge" class="absolute top-3 left-3 text-[11px] font-bold px-3 py-1 rounded-full badge-gold">
+            Bestseller ✨
+          </span>
+        </div>
+
+        <!-- Info & Actions -->
+        <div class="flex flex-col justify-between">
+          <div>
+            <span id="modal-prod-cat" class="text-xs font-bold text-amber-700 uppercase tracking-wider">Category</span>
+            <h3 id="modal-prod-title" class="text-2xl font-bold text-stone-900 mt-1">Product Title</h3>
+            
+            <div class="flex items-center gap-2 mt-2 text-xs">
+              <span class="text-amber-500"><i class="fa-solid fa-star"></i></span>
+              <span id="modal-prod-rating" class="font-bold text-stone-800">4.9</span>
+              <span id="modal-prod-reviews-count" class="text-stone-400">(0 reviews)</span>
+            </div>
+
+            <div class="mt-4 flex items-baseline gap-2">
+              <span id="modal-prod-price" class="text-2xl font-extrabold text-stone-900">₹849</span>
+              <span id="modal-prod-orig-price" class="text-sm text-stone-400 line-through">₹999</span>
+            </div>
+
+            <p id="modal-prod-desc" class="text-xs text-stone-600 mt-3 leading-relaxed">
+              Product detailed description goes here.
+            </p>
+
+            <!-- Attributes -->
+            <div class="mt-4 space-y-1.5 text-xs bg-stone-50 p-3 rounded-xl border border-stone-100">
+              <p><strong>Materials:</strong> <span id="modal-prod-materials">Cotton</span></p>
+              <p><strong>Craft Time:</strong> <span id="modal-prod-craft-time">Ready to ship</span></p>
+              <p id="modal-prod-stock" class="text-emerald-600 font-bold">In Stock</p>
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <button id="modal-add-cart-btn" onclick="addCurrentModalProductToCart()" class="w-full py-3.5 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-sm shadow-md transition-all">
+              Add to Bag
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Customer Reviews Section -->
+      <div class="mt-8 pt-6 border-t border-amber-100">
+        <h4 class="font-bold text-base text-stone-800 mb-3 flex items-center justify-between">
+          <span>Customer Reviews & Feedback 💛</span>
+          <span class="text-xs font-normal text-stone-400">Verified Artisanal Purchases</span>
+        </h4>
+
+        <!-- Reviews List -->
+        <div id="product-reviews-list" class="space-y-3 mb-6 max-h-56 overflow-y-auto pr-1">
+          <!-- Injected via renderProductReviews() -->
+        </div>
+
+        <!-- Write a Review Form -->
+        <div class="bg-amber-50/50 p-4 rounded-2xl border border-amber-200/60">
+          <h5 class="text-xs font-bold text-stone-800 mb-2">Write a Review for this Creation</h5>
+          <form id="write-review-form" onsubmit="handleAddReviewSubmit(event)" class="space-y-2.5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <input id="review-author-input" type="text" placeholder="Your Name" required
+                class="px-3 py-1.5 text-xs bg-white rounded-lg border border-stone-200 outline-none focus:border-amber-400">
+              <select id="review-rating-select" class="px-3 py-1.5 text-xs bg-white rounded-lg border border-stone-200 outline-none focus:border-amber-400 font-medium">
+                <option value="5">★★★★★ 5 Stars (Love it!)</option>
+                <option value="4">★★★★☆ 4 Stars (Very Good)</option>
+                <option value="3">★★★☆☆ 3 Stars (Average)</option>
+                <option value="2">★★☆☆☆ 2 Stars (Needs work)</option>
+                <option value="1">★☆☆☆☆ 1 Star</option>
+              </select>
+            </div>
+            <input id="review-title-input" type="text" placeholder="Review Title (e.g. Incredibly soft!)" required
+              class="w-full px-3 py-1.5 text-xs bg-white rounded-lg border border-stone-200 outline-none focus:border-amber-400">
+            <textarea id="review-comment-input" rows="2" placeholder="Tell other craft lovers what you loved..." required
+              class="w-full px-3 py-1.5 text-xs bg-white rounded-lg border border-stone-200 outline-none focus:border-amber-400"></textarea>
+            <button type="submit" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs rounded-xl shadow-xs">
+              Submit Review ✨
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Checkout & Payment Gateway Modal -->
+  <div id="checkout-modal" class="hidden fixed inset-0 z-50 overflow-y-auto modal-overlay flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-xl w-full max-h-[92vh] overflow-y-auto honey-shadow p-6 sm:p-8 relative">
+      <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-stone-500">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-2xl">🍯</span>
+        <h3 class="text-xl font-bold text-stone-900">Checkout & Order Placement</h3>
+      </div>
+
+      <form onsubmit="handleCheckoutSubmit(event)" class="space-y-4">
+        
+        <!-- Step 1: Delivery Details -->
+        <div>
+          <h4 class="text-xs font-bold text-stone-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+            <span class="w-4 h-4 rounded-full bg-amber-500 text-white text-[10px] flex items-center justify-center font-bold">1</span>
+            Shipping & Customer Details
+          </h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <div>
+              <label class="text-[11px] font-semibold text-stone-600">Full Name</label>
+              <input id="checkout-name" type="text" placeholder="e.g. Utkarsh Raina" required
+                class="w-full px-3 py-2 text-xs bg-stone-50 rounded-xl border border-stone-200 focus:bg-white focus:border-amber-400 outline-none">
+            </div>
+            <div>
+              <label class="text-[11px] font-semibold text-stone-600">Phone Number (SMS / WhatsApp)</label>
+              <input id="checkout-phone" type="tel" placeholder="+91 98765 43210" required
+                class="w-full px-3 py-2 text-xs bg-stone-50 rounded-xl border border-stone-200 focus:bg-white focus:border-amber-400 outline-none">
+            </div>
+            <div class="sm:col-span-2">
+              <label class="text-[11px] font-semibold text-stone-600">Street Address</label>
+              <input id="checkout-address" type="text" placeholder="House/Flat number, Street name, Landmark" required
+                class="w-full px-3 py-2 text-xs bg-stone-50 rounded-xl border border-stone-200 focus:bg-white focus:border-amber-400 outline-none">
+            </div>
+            <div>
+              <label class="text-[11px] font-semibold text-stone-600">City</label>
+              <input id="checkout-city" type="text" placeholder="Bengaluru / Mumbai" required
+                class="w-full px-3 py-2 text-xs bg-stone-50 rounded-xl border border-stone-200 focus:bg-white focus:border-amber-400 outline-none">
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="text-[11px] font-semibold text-stone-600">State</label>
+                <input id="checkout-state" type="text" value="Karnataka" required
+                  class="w-full px-3 py-2 text-xs bg-stone-50 rounded-xl border border-stone-200 focus:bg-white focus:border-amber-400 outline-none">
+              </div>
+              <div>
+                <label class="text-[11px] font-semibold text-stone-600">PIN Code</label>
+                <input id="checkout-pincode" type="text" placeholder="560038" required
+                  class="w-full px-3 py-2 text-xs bg-stone-50 rounded-xl border border-stone-200 focus:bg-white focus:border-amber-400 outline-none">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Payment Gateway Selection -->
+        <div class="pt-3 border-t border-amber-100">
+          <h4 class="text-xs font-bold text-stone-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+            <span class="w-4 h-4 rounded-full bg-amber-500 text-white text-[10px] flex items-center justify-center font-bold">2</span>
+            Payment Method Selection
+          </h4>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+            <!-- UPI Card Option -->
+            <div id="payment-method-upi-card" onclick="selectPaymentMethod('UPI')"
+              class="p-3.5 rounded-2xl border-2 border-amber-500 bg-amber-50/50 cursor-pointer transition-all flex items-start gap-3">
+              <input type="radio" name="paymentMethod" checked class="mt-1 text-amber-500 focus:ring-amber-400">
+              <div>
+                <span class="font-bold text-xs text-stone-900 block">PhonePe / FamPay UPI</span>
+                <span class="text-[11px] text-stone-500">Pay directly to store UPI ID</span>
+              </div>
+            </div>
+
+            <!-- COD Card Option -->
+            <div id="payment-method-cod-card" onclick="selectPaymentMethod('COD')"
+              class="p-3.5 rounded-2xl border-2 border-stone-200 hover:border-amber-200 cursor-pointer transition-all flex items-start gap-3">
+              <input type="radio" name="paymentMethod" class="mt-1 text-amber-500 focus:ring-amber-400">
+              <div>
+                <span class="font-bold text-xs text-stone-900 block">Cash on Delivery (COD)</span>
+                <span class="text-[11px] text-stone-500">Pay cash upon delivery</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- PhonePe / FamPay UPI Gateway Details -->
+          <div id="upi-details-section" class="p-4 bg-amber-50 rounded-2xl border border-amber-200/80 space-y-3">
+            <div class="flex items-center justify-between">
+              <div>
+                <span class="text-[11px] font-bold text-amber-900 uppercase tracking-wide">Direct Merchant UPI</span>
+                <p class="font-mono font-bold text-sm text-stone-800 store-upi-display">utkarshrainavilla8@ybl</p>
+              </div>
+              <span class="bg-amber-200 text-amber-900 text-[10px] font-bold px-2.5 py-1 rounded-full">PhonePe · FamPay Verified</span>
+            </div>
+
+            <!-- QR Code & App Deep Link -->
+            <div class="flex flex-col sm:flex-row items-center gap-4 bg-white p-3.5 rounded-xl border border-amber-100">
+              <img id="upi-qr-image" src="" alt="PhonePe UPI QR Code" class="w-32 h-32 rounded-lg border border-amber-100 p-1 bg-white">
+              <div class="text-center sm:text-left flex-1">
+                <p class="text-xs font-bold text-stone-800">Scan QR with PhonePe, GPay, or Paytm</p>
+                <p class="text-[11px] text-stone-500 mt-0.5">Amount will auto-populate as <strong id="checkout-pay-amount-display" class="text-amber-700">₹0</strong></p>
+                
+                <a id="upi-deeplink-btn" href="#" class="mt-3 inline-block px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold rounded-xl shadow-xs transition-all">
+                  <i class="fa-solid fa-mobile-screen mr-1.5"></i> Open in PhonePe / UPI App
+                </a>
+              </div>
+            </div>
+
+            <!-- Transaction Reference Input -->
+            <div>
+              <label class="text-[11px] font-semibold text-stone-700">UPI Transaction Ref / UTR (Optional for instant match)</label>
+              <input id="checkout-upi-ref" type="text" placeholder="12-digit UTR (e.g. 429184719201)" 
+                class="w-full mt-1 px-3 py-1.5 text-xs bg-white rounded-xl border border-stone-200 outline-none focus:border-amber-400">
+            </div>
+          </div>
+
+          <!-- COD Info Section -->
+          <div id="cod-details-section" class="hidden p-4 bg-stone-50 rounded-2xl border border-stone-200 text-xs text-stone-600 space-y-1">
+            <p class="font-bold text-stone-800">📦 Cash on Delivery Confirmed</p>
+            <p>Our artisan delivery partner will collect exact cash when handing over your beautifully packaged crochet creation.</p>
+          </div>
+        </div>
+
+        <!-- Order Summary & Confirmation Button -->
+        <div class="pt-3 border-t border-amber-100 flex items-center justify-between">
+          <div>
+            <span class="text-[11px] text-stone-400 block">Total Payable</span>
+            <span id="checkout-summary-total" class="text-xl font-extrabold text-stone-900">₹0</span>
+            <div class="hidden">
+              <span id="checkout-summary-subtotal"></span>
+              <span id="checkout-summary-discount"></span>
+              <span id="checkout-summary-shipping"></span>
+            </div>
+          </div>
+          <button type="submit" class="px-6 py-3.5 bg-amber-500 hover:bg-amber-600 active:scale-95 text-white font-bold text-sm rounded-2xl shadow-lg transition-all">
+            Place Order ✨
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Order Success Modal -->
+  <div id="order-success-modal" class="hidden fixed inset-0 z-50 overflow-y-auto modal-overlay flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full honey-shadow p-6 sm:p-8 text-center relative">
+      <span class="text-6xl float-bee block mb-3">🐝</span>
+      <h3 class="text-2xl font-bold text-stone-900">Order Placed with Love!</h3>
+      <p class="text-xs text-stone-500 mt-1">Our craft workshop has received your order and is preparing yarn!</p>
+
+      <div class="bg-amber-50/70 p-4 rounded-2xl border border-amber-100 text-left my-5 text-xs space-y-1.5">
+        <div class="flex justify-between">
+          <span class="text-stone-500">Order ID:</span>
+          <span id="success-order-id" class="font-bold text-stone-800">#HS-00000</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-stone-500">Total Amount:</span>
+          <span id="success-order-total" class="font-bold text-amber-800">₹0</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-stone-500">Payment:</span>
+          <span id="success-order-payment" class="font-medium text-stone-700">PhonePe UPI</span>
+        </div>
+        <div class="pt-1 text-[11px] text-stone-500 border-t border-amber-100/60">
+          📍 <span id="success-order-address">Address</span>
+        </div>
+      </div>
+
+      <div class="flex gap-2">
+        <button onclick="closeOrderSuccessModal(); openOrderTrackingModal();" class="flex-1 py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs rounded-xl shadow-xs">
+          Track Status 🚚
+        </button>
+        <button onclick="closeOrderSuccessModal()" class="px-4 py-3 bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold text-xs rounded-xl">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Real-Time Order Tracking Modal -->
+  <div id="order-tracking-modal" class="hidden fixed inset-0 z-50 overflow-y-auto modal-overlay flex items-center justify-center p-4">
+    <div class="bg-stone-50 rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto honey-shadow p-6 sm:p-8 relative">
+      <button onclick="closeOrderTrackingModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white hover:bg-stone-200 flex items-center justify-center text-stone-500">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-2xl">🚚</span>
+        <h3 class="text-xl font-bold text-stone-900">Your Handcrafted Orders & Tracking</h3>
+      </div>
+
+      <!-- Tracking Items Container -->
+      <div id="orders-tracking-list" class="space-y-4">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Login Modal -->
+  <div id="admin-login-modal" class="hidden fixed inset-0 z-50 overflow-y-auto modal-overlay flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-md w-full honey-shadow p-6 sm:p-8 relative">
+      <button onclick="closeAdminLoginModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-stone-500">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="flex items-center gap-2 mb-2">
+        <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-800 flex items-center justify-center text-lg">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-stone-900">Admin Portal Login</h3>
+          <p class="text-xs text-stone-400">Workshop & Catalog Management</p>
+        </div>
+      </div>
+
+      <form onsubmit="handleAdminLogin(event)" class="space-y-3.5 mt-5">
+        <div>
+          <label class="text-xs font-semibold text-stone-600 block mb-1">Admin Email Address</label>
+          <input id="admin-email-input" type="email" placeholder="admin@domain.com" required
+            class="w-full px-3.5 py-2.5 text-xs bg-stone-50 rounded-xl border border-stone-200 focus:bg-white focus:border-amber-400 outline-none">
+        </div>
+        <div>
+          <label class="text-xs font-semibold text-stone-600 block mb-1">Password</label>
+          <input id="admin-pass-input" type="password" placeholder="••••••••" required
+            class="w-full px-3.5 py-2.5 text-xs bg-stone-50 rounded-xl border border-stone-200 focus:bg-white focus:border-amber-400 outline-none">
+        </div>
+        <button type="submit" class="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs rounded-xl shadow-md transition-all">
+          Sign In to Portal
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Admin Dashboard Modal (Full Management Suite) -->
+  <div id="admin-dashboard-modal" class="hidden fixed inset-0 z-50 overflow-y-auto modal-overlay flex items-center justify-center p-3 sm:p-6">
+    <div class="bg-stone-50 rounded-3xl max-w-5xl w-full max-h-[95vh] overflow-y-auto honey-shadow flex flex-col relative border border-amber-200">
+      
+      <!-- Admin Top Header -->
+      <div class="p-4 sm:p-6 bg-white border-b border-amber-100 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-500 to-amber-300 text-white flex items-center justify-center text-xl shadow-xs">
+            <i class="fa-solid fa-crown"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-stone-900 flex items-center gap-2">
+              <span id="admin-logged-name">Utkarsh Raina</span>
+              <span id="admin-logged-role" class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-full">Super Admin</span>
+            </h3>
+            <p class="text-xs text-stone-400">Honeycomb Workshop Control Panel</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="handleAdminLogout()" class="px-3.5 py-2 rounded-xl text-xs font-bold text-stone-600 hover:text-red-600 hover:bg-red-50 border border-stone-200 transition-all">
+            <i class="fa-solid fa-arrow-right-from-bracket mr-1"></i> Logout
+          </button>
+          <button onclick="closeAdminDashboard()" class="w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-stone-500">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <div class="bg-amber-50/60 px-4 sm:px-6 py-2.5 border-b border-amber-100 flex items-center gap-2 overflow-x-auto">
+        <button id="admin-tab-btn-analytics" onclick="switchAdminTab('analytics')" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-amber-500 text-white shadow-xs">
+          📊 Sales Analytics
+        </button>
+        <button id="admin-tab-btn-products" onclick="switchAdminTab('products')" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-stone-600 hover:bg-amber-100 shadow-xs">
+          🧶 Products & Prices
+        </button>
+        <button id="admin-tab-btn-orders" onclick="switchAdminTab('orders')" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-stone-600 hover:bg-amber-100 shadow-xs">
+          📦 Orders & Status
+        </button>
+        <button id="admin-tab-btn-notifications" onclick="switchAdminTab('notifications')" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-stone-600 hover:bg-amber-100 shadow-xs">
+          🔔 Notifications
+        </button>
+        <button id="admin-tab-btn-team" onclick="switchAdminTab('team')" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-stone-600 hover:bg-amber-100 shadow-xs">
+          👥 Admin Team
+        </button>
+        <button id="admin-tab-btn-settings" onclick="switchAdminTab('settings')" class="px-3.5 py-1.5 rounded-full text-xs font-bold bg-white text-stone-600 hover:bg-amber-100 shadow-xs">
+          ⚙️ PhonePe/UPI Config
+        </button>
+      </div>
+
+      <!-- Tab 1: Analytics -->
+      <div id="admin-section-analytics" class="p-6 space-y-6">
+        <!-- 4 Metric Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-white p-4 rounded-2xl border border-amber-100 honey-shadow-sm">
+            <span class="text-xs text-stone-400 font-semibold block">Total Sales</span>
+            <h4 id="admin-stat-revenue" class="text-xl sm:text-2xl font-extrabold text-amber-700 mt-1">₹0</h4>
+            <span class="text-[10px] text-emerald-600 font-bold">Direct UPI & COD</span>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-amber-100 honey-shadow-sm">
+            <span class="text-xs text-stone-400 font-semibold block">Total Orders</span>
+            <h4 id="admin-stat-orders" class="text-xl sm:text-2xl font-extrabold text-stone-800 mt-1">0</h4>
+            <span class="text-[10px] text-stone-400">Live order backlog</span>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-amber-100 honey-shadow-sm">
+            <span class="text-xs text-stone-400 font-semibold block">Average Order</span>
+            <h4 id="admin-stat-aov" class="text-xl sm:text-2xl font-extrabold text-stone-800 mt-1">₹0</h4>
+            <span class="text-[10px] text-stone-400">AOV per customer</span>
+          </div>
+          <div class="bg-white p-4 rounded-2xl border border-amber-100 honey-shadow-sm">
+            <span class="text-xs text-stone-400 font-semibold block">Inventory Health</span>
+            <h4 id="admin-stat-stock" class="text-xl sm:text-2xl font-extrabold text-stone-800 mt-1">0 Out of Stock</h4>
+            <span class="text-[10px] text-amber-700">Stock monitor</span>
+          </div>
+        </div>
+
+        <!-- Top Selling Handcrafted Items -->
+        <div class="bg-white p-5 rounded-2xl border border-amber-100">
+          <h4 class="font-bold text-sm text-stone-800 mb-3">Top Performing Handcrafted Creations</h4>
+          <div id="admin-top-products-list" class="space-y-2">
+            <!-- Dynamically populated -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Products & Price / Stock Management -->
+      <div id="admin-section-products" class="hidden p-6 space-y-4">
+        <div class="flex justify-between items-center">
+          <div>
+            <h4 class="font-bold text-base text-stone-800">Inventory & Pricing Control</h4>
+            <p class="text-xs text-stone-500">Edit price, toggle out of stock, or add new handcrafted pieces</p>
+          </div>
+          <button onclick="openAddProductModal()" class="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs rounded-xl shadow-xs">
+            <i class="fa-solid fa-plus mr-1"></i> Add New Product
+          </button>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-amber-100 overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-stone-100 text-[11px] font-bold text-stone-400 uppercase tracking-wider bg-stone-50">
+                <th class="py-3 px-4">Item</th>
+                <th class="py-3 px-4">Price (₹ INR)</th>
+                <th class="py-3 px-4">Stock Status</th>
+                <th class="py-3 px-4">Sold</th>
+                <th class="py-3 px-4 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="admin-products-table-body">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 3: Orders Management -->
+      <div id="admin-section-orders" class="hidden p-6 space-y-4">
+        <div>
+          <h4 class="font-bold text-base text-stone-800">Live Customer Orders</h4>
+          <p class="text-xs text-stone-500">Update status from Placed → Crafting → Dispatched → Delivered</p>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-amber-100 overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-stone-100 text-[11px] font-bold text-stone-400 uppercase tracking-wider bg-stone-50">
+                <th class="py-3 px-4">Order ID & Date</th>
+                <th class="py-3 px-4">Customer</th>
+                <th class="py-3 px-4">Amount & Payment</th>
+                <th class="py-3 px-4">Workshop Status</th>
+              </tr>
+            </thead>
+            <tbody id="admin-orders-table-body">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab 4: Notifications -->
+      <div id="admin-section-notifications" class="hidden p-6 space-y-4">
+        <div>
+          <h4 class="font-bold text-base text-stone-800">Real-Time Workshop Alerts</h4>
+          <p class="text-xs text-stone-500">Instant notifications whenever a customer places an order</p>
+        </div>
+        <div id="admin-notifications-list" class="space-y-2.5">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- Tab 5: Admin Team Management -->
+      <div id="admin-section-team" class="hidden p-6 space-y-6">
+        <div>
+          <h4 class="font-bold text-base text-stone-800">Workshop Administrators</h4>
+          <p class="text-xs text-stone-500">Manage multiple admin accounts and access roles</p>
+        </div>
+
+        <div id="admin-team-list" class="space-y-2.5">
+          <!-- Dynamically populated -->
+        </div>
+
+        <!-- Add New Admin Form -->
+        <div class="bg-white p-5 rounded-2xl border border-amber-100">
+          <h5 class="text-xs font-bold text-stone-800 uppercase tracking-wider mb-3">Add New Administrator</h5>
+          <form id="add-admin-form" onsubmit="handleAddAdminSubmit(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="text-[11px] font-semibold text-stone-600">Full Name</label>
+              <input id="new-admin-name" type="text" placeholder="Archana Raina" required
+                class="w-full px-3 py-2 text-xs bg-stone-50 rounded-xl border border-stone-200 outline-none focus:border-amber-400">
+            </div>
+            <div>
+              <label class="text-[11px] font-semibold text-stone-600">Admin Email</label>
+              <input id="new-admin-email" type="email" placeholder="archana@domain.com" required
+                class="w-full px-3 py-2 text-xs bg-stone-50 rounded-xl border border-stone-200 outline-none focus:border-amber-400">
+            </div>
+            <div>
+              <label class="text-[11px] font-semibold text-stone-600">Password</label>
+              <input id="new-admin-pass" type="password" placeholder="••••••••" required
+                class="w-full px-3 py-2 text-xs bg-stone-50 rounded-xl border border-stone-200 outline-none focus:border-amber-400">
+            </div>
+            <div>
+              <label class="text-[11px] font-semibold text-stone-600">Role</label>
+              <select id="new-admin-role" class="w-full px-3 py-2 text-xs bg-stone-50 rounded-xl border border-stone-200 outline-none focus:border-amber-400">
+                <option value="Workshop Manager">Workshop Manager</option>
+                <option value="Catalog Editor">Catalog Editor</option>
+                <option value="Order Dispatcher">Order Dispatcher</option>
+                <option value="Super Admin">Super Admin</option>
+              </select>
+            </div>
+            <div class="sm:col-span-2 text-right">
+              <button type="submit" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs rounded-xl shadow-xs">
+                Create Admin ID
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Tab 6: Store PhonePe / UPI Settings -->
+      <div id="admin-section-settings" class="hidden p-6 space-y-4">
+        <div>
+          <h4 class="font-bold text-base text-stone-800">PhonePe / UPI Store Configuration</h4>
+          <p class="text-xs text-stone-500">Configure where customer online payments are directly credited</p>
+        </div>
+
+        <form onsubmit="handleUpdateUpiSettings(event)" class="bg-white p-5 rounded-2xl border border-amber-100 space-y-4 max-w-lg">
+          <div>
+            <label class="text-xs font-semibold text-stone-600 block mb-1">Merchant UPI ID (PhonePe / FamPay)</label>
+            <input id="settings-upi-id" type="text" value="utkarshrainavilla8@ybl" required
+              class="w-full px-3 py-2 text-xs font-mono bg-stone-50 rounded-xl border border-stone-200 outline-none focus:border-amber-400">
+            <span class="text-[10px] text-stone-400 mt-1 block">Payments made via online PhonePe QR will credit to this UPI address.</span>
+          </div>
+
+          <button type="submit" class="px-5 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs rounded-xl shadow-xs">
+            Save UPI Settings
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Add Product Modal -->
+  <div id="add-product-modal" class="hidden fixed inset-0 z-50 overflow-y-auto modal-overlay flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-lg w-full max-h-[90vh] overflow-y-auto honey-shadow p-6 sm:p-8 relative">
+      <button onclick="closeAddProductModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 flex items-center justify-center text-stone-500">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <h3 class="text-lg font-bold text-stone-900 mb-4">Add Handcrafted Product</h3>
+      <form id="add-product-form" onsubmit="handleAddProductSubmit(event)" class="space-y-3">
+        <div>
+          <label class="text-[11px] font-semibold text-stone-600">Product Title</label>
+          <input id="new-prod-title" type="text" placeholder="e.g. Lavender Blossom Amigurumi" required
+            class="w-full px-3 py-2 text-xs bg-stone-50 rounded-xl border border-stone-200 outline-none focus:border-amber-400">
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="text-[11px] font-semibold text-stone-600">Category</label>
+            <select id="new-prod-category" class="w-full px-3 py-2 text-xs bg-stone-50 rounded-xl border border-stone-200 outline-none focus:border-amber-400">
+              <option value="Amigurumi">Amigurumi Plushie</option>
+              <option value="Blankets">Honeycomb Blanket</option>
+              <option value="Sweaters">Cardigan & Sweater</option>
+              <option value="Accessories">Accessories</option>
+              <option value="Kits & Yarn">DIY Kit & Yarn</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-[11px] font-semibold text-stone-600">Icon / Emoji</label>
+            <input id="new-prod-icon" type="text" value="🧶"
+              class="w-full px-3 py-2 text-xs bg-stone-50 rounded-xl border border-stone-200 outline-none focus:border-amber-400">
+          </div>
+        </div>
+        <div class="grid grid-cols-3 gap-2">
+          <div>
+            <label class="text-[11px] font-semibold text-stone-600">Price (₹ INR)</label>
+            <input id="new-prod-price" type="number" placeholder="899" required
+              class="w-full px-3 py-2 text-xs bg-stone-50 rounded-xl border border-stone-200 outline-none focus:border-amber-400">
+          </div>
+          <div>
+            <label class="text-[11px] font-semibold text-stone-600">Original Price</label>
+            <input id="new-prod-orig-price" type="number" placeholder="1199"
+              class="w-full px-3 py-2 text-xs bg-stone-50 rounded-xl border border-stone-200 outline-none focus:border-amber-400">
+          </div>
+          <div>
+            <label class="text-[11px] font-semibold text-stone-600">Stock Qty</label>
+            <input id="new-prod-stock" type="number" value="10" required
+              class="w-full px-3 py-2 text-xs bg-stone-50 rounded-xl border border-stone-200 outline-none focus:border-amber-400">
+          </div>
+        </div>
+        <div>
+          <label class="text-[11px] font-semibold text-stone-600">Badge Text</label>
+          <input id="new-prod-badge" type="text" value="Handmade Love 💛"
+            class="w-full px-3 py-2 text-xs bg-stone-50 rounded-xl border border-stone-200 outline-none focus:border-amber-400">
+        </div>
+        <div>
+          <label class="text-[11px] font-semibold text-stone-600">Description</label>
+          <textarea id="new-prod-desc" rows="2" placeholder="Handcrafted with organic yarn..."
+            class="w-full px-3 py-2 text-xs bg-stone-50 rounded-xl border border-stone-200 outline-none focus:border-amber-400"></textarea>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="text-[11px] font-semibold text-stone-600">Materials</label>
+            <input id="new-prod-materials" type="text" value="100% Cotton Yarn"
+              class="w-full px-3 py-2 text-xs bg-stone-50 rounded-xl border border-stone-200 outline-none focus:border-amber-400">
+          </div>
+          <div>
+            <label class="text-[11px] font-semibold text-stone-600">Craft Time</label>
+            <input id="new-prod-craft" type="text" value="Ready to ship · 2 days"
+              class="w-full px-3 py-2 text-xs bg-stone-50 rounded-xl border border-stone-200 outline-none focus:border-amber-400">
+          </div>
+        </div>
+        <button type="submit" class="w-full py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs rounded-xl shadow-xs mt-2">
+          Add Product to Store ✨
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-amber-100 py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="space-y-3">
+        <div class="flex items-center gap-2">
+          <img src="assets/logo.jpg" alt="Honeycomb Logo" class="w-10 h-10 rounded-full border border-amber-300">
+          <span class="font-bold text-lg text-stone-800">Honeycomb Stitches</span>
+        </div>
+        <p class="text-xs text-stone-500 leading-relaxed">
+          Crafting joy loop by loop. Every amigurumi plushie, hexagon blanket, and cardigan is handmade with heartfelt care.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-xs text-stone-900 uppercase tracking-wider mb-3">Quick Links</h4>
+        <ul class="space-y-2 text-xs text-stone-600">
+          <li><a href="#" class="hover:text-amber-600">All Collections</a></li>
+          <li><a href="#" onclick="openOrderTrackingModal(); return false;" class="hover:text-amber-600">Track Order</a></li>
+          <li><a href="#" onclick="openCartDrawer(); return false;" class="hover:text-amber-600">Shopping Bag</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-xs text-stone-900 uppercase tracking-wider mb-3">Payment & Delivery</h4>
+        <ul class="space-y-2 text-xs text-stone-600">
+          <li>PhonePe / FamPay UPI Direct</li>
+          <li>Cash on Delivery (COD)</li>
+          <li>Fast Pan-India Express Delivery</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-xs text-stone-900 uppercase tracking-wider mb-3">Workshop Owner</h4>
+        <p class="text-xs text-stone-600">
+          Super Admin: <strong>Utkarsh Raina</strong><br>
+          Store Contact: utkarshrainavilla8@gmail.com
+        </p>
+      </div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-6 border-t border-stone-100 text-center text-xs text-stone-400">
+      © 2024 Honeycomb Stitches · Handmade with Love 🐝 · All rights reserved.
+    </div>
+  </footer>
+
+  <!-- App Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
